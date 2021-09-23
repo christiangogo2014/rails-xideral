@@ -6,3 +6,5 @@ en:
     start: "Home"
     login: "Login"
     racing: "Racing"
+  products:
+    name:  Products

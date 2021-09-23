@@ -6,3 +6,5 @@ es:
     start: "Inicio"
     login: "Login"
     racing: "A Rodar"
+  products:
+    name:  Productos

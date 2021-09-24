@@ -3,40 +3,53 @@
 
 <p id="notice"><%= notice %></p>
 
+<div class="clearfix"><br/>
 <center>
-  <h1> <%= t "products.name" %> </h1>
+  <h3> Las bicicletas más vendidas </h3>
 </center>
+<div class="clearfix"><br/>
 
-<div class="table-responsive">
-<table class="table ">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Description</th>
-      <th>Price</th>
-      <th>Remote url</th>
-      <th>Stripe price</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
 
-  <tbody>
-    <% @products.each do |product| %>
-      <tr>
-        <td><%= product.name %></td>
-        <td><%= product.description %></td>
-        <td><%= product.price %></td>
-        <td><%= product.remote_url %></td>
-        <td><%= product.stripe_price_id %></td>
-        <td><%= link_to 'Show', product %></td>
-        <td><%= link_to 'Edit', edit_product_path(product) %></td>
-        <td><%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<div class="container-fluid">
+  <% @products.each do |product| %>
+    
+      <div class="jumbotron">
+        <h1>
+          <center>
+            <%= product.name %>
+          </center>
+        </h1>
+        <p>
+          <div class="row">
+            <div class="col-sm-4">
+              <img src="<%= product.remote_url %>" />
+            </div>
+            <div class="col-sm-8">
+              <%= product.description %>
+            </div>
+          </div>
+        </p>
+
+        <p align="right">
+          <a class="btn btn-primary btn-lg" href="#" role="button">$ <%= product.price.round(2) %></a>
+          <!-- <%= product.stripe_price_id %> -->
+        </p>
+        
+        <p align="right">
+              <!-- <%= link_to 'Show', product, class: "btn btn-primary" %> -->
+              <%= link_to 'Edit', edit_product_path(product), class: "btn btn-danger" %>
+              <%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-warning" %>
+        </p>
+      </div>
+
+    
+  <% end %>
 </div>
 
-<br>
+<div class="clearfix"></div><br/>
 
-<%= link_to 'New Product', new_product_path %>
+<p align="right">
+<%= link_to 'New Product', new_product_path, class: "btn btn-primary" %>
+</p>
+
+<div class="clearfix"></div><br/>

@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+
+  devise_for :managers
   resources :products
   root to: "welcome#index"
   get 'welcome/index'

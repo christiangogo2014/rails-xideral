@@ -26,17 +26,15 @@
                 </li>
 
                 <li class="nav-item">
-                  <a class="nav-link" href="#"> 
                     <% if current_manager.present? %>
 
-                  	 <%= link_to "Cerrar sesión", destroy_manager_session %> 
+                  	 <%= link_to "Cerrar sesión", "/managers/sign_out", class: "nav-link"  %> 
                      
                     <% else %>
 
-                      <%= link_to t("home.login"), new_manager_session %> 
+                      <%= link_to t("home.login"), "/managers/sign_in", class: "nav-link" %> 
 
-                    <% else %>
-                  </a>
+                    <% end %>
                 </li>
 
               </ul>

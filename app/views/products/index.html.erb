@@ -34,9 +34,11 @@
         </p>
         
         <p align="right">
+              <% if current_manager.present? %>
               <!-- <%= link_to 'Show', product, class: "btn btn-primary" %> -->
               <%= link_to 'Edit', edit_product_path(product), class: "btn btn-danger" %>
               <%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-warning" %>
+              <%end%>
         </p>
       </div>
 

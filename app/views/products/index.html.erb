@@ -29,8 +29,46 @@
         </p>
 
         <p align="right">
-          <a class="btn btn-primary btn-lg" href="#" role="button">$ <%= product.price.round(2) %></a>
-          <!-- <%= product.stripe_price_id %> -->
+          <a id="cycle-item-<%= product.id -%>" class="btn btn-primary btn-lg" href="#" role="button">$ <%= product.price.round(2) %></a>
+          <script src="https://js.stripe.com/v3/"></script>
+          <script>
+          $(document).ready(function(){
+              var PUBLISHABLE_KEY = 'pk_test_51JdgqlBh1rfPGXjsIaXTCX9DhFAHqOsZWT2lIb0V22dOAusxvCaW18tOvh1ZEMvqIfogud9RH6bZTRLDIQm9gEKI00rW2JK8OT'; 
+              var DOMAIN = window.location.origin;
+              var EBOND_PRICE_ID  = '<%= product.stripe_price_id %>';
+              var stripe = Stripe(PUBLISHABLE_KEY);
+                    // Handle any errors from Checkout
+                    var handleResult = function (result) {
+                      if (result.error) {
+                        var displayError = document.getElementById("error-message");
+                        displayError.textContent = result.error.message;
+                      }
+                    };
+                    var redirectToCheckout = function (priceId) {
+                      // Make the call to Stripe.js to redirect to the checkout page
+                      // with the current quantity
+                      stripe
+                        .redirectToCheckout({
+                          lineItems: [{ 
+                            price: priceId, 
+                            quantity: 1 
+                          }],
+                          successUrl:
+                            DOMAIN + "/thankyou",
+                          cancelUrl: DOMAIN + "/cancel",
+                          mode: 'payment',
+                          clientReferenceId: '<%= product.id -%>'//,
+                          //customerEmail: '<%#= current_user.email -%>',
+                        })
+                        .then(handleResult);
+                    };
+                    document
+                      .getElementById("cycle-item-<%= product.id -%>")
+                      .addEventListener("click", function (evt) {
+                        redirectToCheckout(EBOND_PRICE_ID);
+                      });
+          }); 
+          </script> 
         </p>
         
         <p align="right">
